@@ -27,15 +27,22 @@ public class OfferPageStepDefinition {
 	
 	@Then("User searched for {string} shortname in offers page")
 	public void user_searched_for_same_shortname_in_offers_page(String shortName) {
+		switchToOfferPage();
+		testContextSetup.driver.findElement(By.xpath("//input[@type='search']")).sendKeys(shortName);
+		offerPageProductName=testContextSetup.driver.findElement(By.cssSelector("tr td:nth-child(1)")).getText();
+	}
+	
+	public void switchToOfferPage() {
+		//if(testContextSetup.driver.getCurrentUrl().equalsIgnoreCase("https://rahulshettyacademy.com/seleniumPractise/#/")) {
 		testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
 		Set<String> s1= testContextSetup.driver.getWindowHandles();
 		Iterator<String> i1=s1.iterator();
 		String parentWindow=i1.next();
 		String childWindow=i1.next();
 		testContextSetup.driver.switchTo().window(childWindow);
-		testContextSetup.driver.findElement(By.xpath("//input[@type='search']")).sendKeys(shortName);
-		offerPageProductName=testContextSetup.driver.findElement(By.cssSelector("tr td:nth-child(1)")).getText();
+		//}
 	}
+	
 	@Then("Validate product name in offers page matches with Landing page")
 	public void Validate_product_name_in_offers_page_matches_with_Landing_page() {
 		Assert.assertEquals(offerPageProductName, testContextSetup.landingPageProductName);

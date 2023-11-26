@@ -11,6 +11,7 @@ import org.testng.Assert;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import pageObjects.LandingPage;
 import utils.TestContextSetup;
 
 
@@ -33,9 +34,11 @@ public class LandingPageStepDefinition {
 	@When("User searched with shortname {string} and extracted actual name of product")
 	public void user_searched_with_shortname_and_extracted_actual_name_of_product(String shortName) throws InterruptedException {
 		Thread.sleep(3000);
-		testContextSetup.driver.findElement(By.xpath("//input[@type='search']")).sendKeys(shortName);
+		LandingPage landingPage= new LandingPage(testContextSetup.driver);
+		landingPage.searchItem(shortName);
+		//	testContextSetup.driver.findElement(By.xpath("//input[@type='search']")).sendKeys(shortName);
 		Thread.sleep(2000);
-		testContextSetup.landingPageProductName=testContextSetup.driver.findElement(By.cssSelector("h4.product-name")).getText().split("-")[0].trim();
+		testContextSetup.landingPageProductName=landingPage.getProductName().split("-")[0].trim();
 		System.out.println(testContextSetup.landingPageProductName+" is extracted from home page");
 	}
 	
