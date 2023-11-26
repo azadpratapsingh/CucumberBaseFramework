@@ -7,7 +7,7 @@ public class LandingPage {
 	public WebDriver driver;
 	By search=	By.xpath("//input[@type='search']");
 	By productname= By.cssSelector("h4.product-name");
-	By topDeals = By.cssSelector("Top Deals");
+	By topDeals = By.linkText("Top Deals");
 	public LandingPage(WebDriver driver) {
 		this.driver=driver;
 	}

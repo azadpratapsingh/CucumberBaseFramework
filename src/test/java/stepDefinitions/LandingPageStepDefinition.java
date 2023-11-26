@@ -27,14 +27,14 @@ public class LandingPageStepDefinition {
 	
 	@Given("User is on Greenkart landing page")
 	public void user_is_on_greenkart_landing_page() {
-		System.setProperty("webdriver.edge.driver","C:\\Users\\iamco\\Udemy\\Cucumber\\CucmberFrameworkDesign\\src\\main\\resources\\msedgedriver.exe");
-		testContextSetup.driver=new EdgeDriver();
-		testContextSetup.driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+//		System.setProperty("webdriver.edge.driver","C:\\Users\\iamco\\Udemy\\Cucumber\\CucmberFrameworkDesign\\src\\main\\resources\\msedgedriver.exe");
+//		driver=new EdgeDriver();
+//		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
 	}
 	@When("User searched with shortname {string} and extracted actual name of product")
 	public void user_searched_with_shortname_and_extracted_actual_name_of_product(String shortName) throws InterruptedException {
 		Thread.sleep(3000);
-		LandingPage landingPage= new LandingPage(testContextSetup.driver);
+		LandingPage landingPage = testContextSetup.pageObjectManager.getLandingPage();
 		landingPage.searchItem(shortName);
 		//	testContextSetup.driver.findElement(By.xpath("//input[@type='search']")).sendKeys(shortName);
 		Thread.sleep(2000);

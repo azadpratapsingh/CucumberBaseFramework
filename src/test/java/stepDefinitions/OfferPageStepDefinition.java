@@ -10,14 +10,16 @@ import org.testng.Assert;
 import io.cucumber.java.en.Then;
 import pageObjects.LandingPage;
 import pageObjects.OfferPage;
+import pageObjects.PageObjectManager;
 import utils.TestContextSetup;
 
 
 public class OfferPageStepDefinition {
 	public WebDriver driver;
 	String offerPageProductName;
-	String landningPageProductName;
+	String landingPageProductName;
 	TestContextSetup testContextSetup;
+	PageObjectManager pageObjectManager;
 	
 	public OfferPageStepDefinition(TestContextSetup testContextSetup) {
 		this.testContextSetup=testContextSetup;
@@ -27,7 +29,7 @@ public class OfferPageStepDefinition {
 	@Then("User searched for {string} shortname in offers page")
 	public void user_searched_for_same_shortname_in_offers_page(String shortName) {
 		switchToOfferPage();
-		OfferPage offerPage=new OfferPage(testContextSetup.driver);
+		OfferPage offerPage=testContextSetup.pageObjectManager.getOffersPage();
 		offerPage.searchItem(shortName);
 		offerPageProductName=offerPage.getProductName();
 	}
@@ -35,14 +37,9 @@ public class OfferPageStepDefinition {
 	public void switchToOfferPage() {
 		//if(testContextSetup.driver.getCurrentUrl().equalsIgnoreCase("https://rahulshettyacademy.com/seleniumPractise/#/")) {
 		
-		LandingPage landingPage = new LandingPage(testContextSetup.driver);
+		LandingPage landingPage = testContextSetup.pageObjectManager.getLandingPage();
 		landingPage.selectTopDeals();
-		testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
-		Set<String> s1= testContextSetup.driver.getWindowHandles();
-		Iterator<String> i1=s1.iterator();
-		String parentWindow=i1.next();
-		String childWindow=i1.next();
-		testContextSetup.driver.switchTo().window(childWindow);
+		testContextSetup.genericUtils.switchWindowToChild();
 		//}
 	}
 	
