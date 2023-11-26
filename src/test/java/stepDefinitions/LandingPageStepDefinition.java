@@ -31,7 +31,8 @@ public class LandingPageStepDefinition {
 //		driver=new EdgeDriver();
 //		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
 	}
-	@When("User searched with shortname {string} and extracted actual name of product")
+//	@When("User searched with shortname {string} and extracted actual name of product")  // For Scenario
+	@When("^User searched with shortname (.+) and extracted actual name of product$")   //Scenario Outline
 	public void user_searched_with_shortname_and_extracted_actual_name_of_product(String shortName) throws InterruptedException {
 		Thread.sleep(3000);
 		LandingPage landingPage = testContextSetup.pageObjectManager.getLandingPage();
