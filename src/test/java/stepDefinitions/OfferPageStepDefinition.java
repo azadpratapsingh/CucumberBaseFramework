@@ -5,12 +5,11 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import pageObjects.LandingPage;
+import pageObjects.OfferPage;
 import utils.TestContextSetup;
 
 
@@ -28,12 +27,16 @@ public class OfferPageStepDefinition {
 	@Then("User searched for {string} shortname in offers page")
 	public void user_searched_for_same_shortname_in_offers_page(String shortName) {
 		switchToOfferPage();
-		testContextSetup.driver.findElement(By.xpath("//input[@type='search']")).sendKeys(shortName);
-		offerPageProductName=testContextSetup.driver.findElement(By.cssSelector("tr td:nth-child(1)")).getText();
+		OfferPage offerPage=new OfferPage(testContextSetup.driver);
+		offerPage.searchItem(shortName);
+		offerPageProductName=offerPage.getProductName();
 	}
 	
 	public void switchToOfferPage() {
 		//if(testContextSetup.driver.getCurrentUrl().equalsIgnoreCase("https://rahulshettyacademy.com/seleniumPractise/#/")) {
+		
+		LandingPage landingPage = new LandingPage(testContextSetup.driver);
+		landingPage.selectTopDeals();
 		testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
 		Set<String> s1= testContextSetup.driver.getWindowHandles();
 		Iterator<String> i1=s1.iterator();

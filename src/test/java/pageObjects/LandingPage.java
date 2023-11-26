@@ -7,6 +7,7 @@ public class LandingPage {
 	public WebDriver driver;
 	By search=	By.xpath("//input[@type='search']");
 	By productname= By.cssSelector("h4.product-name");
+	By topDeals = By.cssSelector("Top Deals");
 	public LandingPage(WebDriver driver) {
 		this.driver=driver;
 	}
@@ -21,5 +22,10 @@ public class LandingPage {
 	
 	public String getProductName() {
 		return driver.findElement(productname).getText();
+	}
+	
+	public void selectTopDeals() {
+		driver.findElement(topDeals).click();;
+		
 	}
 }
